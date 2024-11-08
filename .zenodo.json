@@ -1,6 +1,6 @@
 {
-    "title": "Enhancing the ReaxFF protocol",
-    "version": "1.0.0",
+    "title": "CGMD PLA-Gr",
+    "version": "0.0.1-alpha",
     "description": "<h1>CGMD PLA-Gr</h1>\n<p>This repository currently serves as a placeholder while the related article is under review.<br>More details, including installation and usage instructions, will be provided once the article is published.</p>",
     "creators": [
         {
@@ -170,7 +170,7 @@
     "related_identifiers": [
         {
             "scheme": "doi",
-            "identifier": "TBD",
+            "identifier": "10.1234/foo",
             "relation": "isSupplementTo",
             "resource_type": "publication-article"
         }
