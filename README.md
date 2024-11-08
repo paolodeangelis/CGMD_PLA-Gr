@@ -1,2 +1,5 @@
-# CGMD_PLA-Gr
-Supplementary material to reproduce the results of the article "From Nanoscale to Printed Products: Multiscale Modeling and Experimental Characterization of Graphene-Enhanced Polylactic Acid Composites for 3D Printing."
+#CGMD_PLA-Gr
+
+This repository currently serves as a placeholder while the related article is under review.
+
+More details, including installation and usage instructions, will be provided once the article is published.

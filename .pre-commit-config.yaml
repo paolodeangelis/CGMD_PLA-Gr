@@ -1,0 +1,79 @@
+exclude: '.git|.tox|.trash|lammps_wrapper'
+default_stages: [commit]
+fail_fast: true
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^.tex
+      - id: end-of-file-fixer
+        exclude: ^.tex
+      - id: check-toml
+      - id: check-ast
+      - id: check-json
+      - id: check-merge-conflict
+      # - id: check-shebang-scripts-are-executable
+        exclude: ^.tex
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev:  v3.19.0
+    hooks:
+    -   id: pyupgrade
+        args: [--py36-plus]
+
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 1.19.1
+    hooks:
+    -   id: blacken-docs
+        # additional_dependencies: [black==21.9b0]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-isort, flake8-builtins, flake8-docstrings] # [flake8-isort, flake8-docstrings]
+
+  -   repo: https://github.com/pre-commit/mirrors-mypy
+      rev: 'v1.13.0'  # Use the sha / tag you want to point at
+      hooks:
+      -   id: mypy
+
+  - repo: https://github.com/cpp-linter/cpp-linter-hooks
+    rev: v0.5.1  # Use the ref you want to point at
+    hooks:
+      - id: clang-format
+        args: [--style=Google] # Other coding style: LLVM, GNU, Chromium, Microsoft, Mozilla, WebKit.
+      # - id: clang-tidy
+      #   args: [--checks='boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-*,cppcoreguidelines-*']
+
+  - repo: https://github.com/jonasbb/pre-commit-latex-hooks
+    rev: v1.4.3
+    hooks:
+      - id: american-eg-ie
+      - id: cleveref-capitalization
+      - id: consistent-spelling
+        args:
+            [
+              "--emph=et al.",
+              "--emph=a priori",
+              "--emph=in silico",
+              "--emph=a posteriori",
+              '--regex=naive=\bna(i|\\"i)ve',
+            ]
+      # - id: csquotes
+      # - id: ensure-labels-for-sections
+      # - id: no-space-in-cite
+      - id: tilde-cite
+      # - id: unique-labels
