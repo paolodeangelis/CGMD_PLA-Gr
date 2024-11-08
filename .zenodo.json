@@ -1,0 +1,183 @@
+{
+    "title": "Enhancing the ReaxFF protocol",
+    "version": "1.0.0",
+    "description": "<h1>CGMD PLA-Gr</h1>\n<p>This repository currently serves as a placeholder while the related article is under review.<br>More details, including installation and usage instructions, will be provided once the article is published.</p>",
+    "creators": [
+        {
+            "name": "Muhammad, Atta",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy",
+            "orcid": "0009-0000-4129-3936"
+        },
+        {
+            "name": "Valero, Clara",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "De Angelis, Paolo",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy",
+            "orcid": "0000-0003-1866-2988"
+        },
+        {
+            "name": "Koutroumanis, Nikolaos",
+            "affiliation": "Foundation of Research and Technology-Hellas, Institute of Chemical Engineering Sciences, Stadioustr Rion, Patras, 26504, Greece"
+        },
+        {
+            "name": "Semitekolos, Dionisis",
+            "affiliation": "School of Chemical Engineering, National Technical University of Athens, roon Polytechniou 9, Athens, 15780, Greece"
+        },
+        {
+            "name": "Jiménez, Bárbara",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "Rivera, Rubén",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "Sáenz Ezquerro, Carlos",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "Srivastava, Rajat",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy"
+        },
+        {
+            "name": "Pappas, Panagiotis-Nektarios",
+            "affiliation": "Foundation of Research and Technology-Hellas, Institute of Chemical Engineering Sciences, Stadioustr Rion, Patras, 26504, Greece"
+        },
+        {
+            "name": "Galiotis, Costas",
+            "affiliation": "Foundation of Research and Technology-Hellas, Institute of Chemical Engineering Sciences, Stadioustr Rion, Patras, 26504, Greece"
+        },
+        {
+            "name": "Charitidis, Costas A.",
+            "affiliation": "School of Chemical Engineering, National Technical University of Athens, roon Polytechniou 9, Athens, 15780, Greece"
+        },
+        {
+            "name": "Chiavazzo, Eliodoro",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy",
+            "orcid": "0000-0001-6165-7434"
+        },
+        {
+            "name": "Asinari, Pietro",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy",
+            "orcid": "0000-0003-1814-3846"
+        },
+        {
+            "name": "Laspalas, Manuel",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "Chiminelli, Agustín",
+            "affiliation": "Materials and Components Division, Aragon Institute of Technology - ITA, María de Luna 7, Zaragoza, 50018, Spain"
+        },
+        {
+            "name": "Fasano, Matteo",
+            "affiliation": "Department of Energy \u201cGalileo Ferraris\u201d, Politecnico di Torino, Corso Duca Degli Abruzzi 24 10129 Torino, Italy",
+            "orcid": "0000-0002-3997-3681"
+        }
+    ],
+    "upload_type": "software",
+    "access_right": "closed",
+    "license": "cc-by-4.0",
+    "contributors": [
+        {
+            "name": "Muhammad, Atta",
+            "type": "ContactPerson",
+            "orcid": "0009-0000-4129-3936"
+        },
+        {
+            "name": "Valero, Clara",
+            "type": "ContactPerson"
+        },
+        {
+            "name": "De Angelis, Paolo",
+            "type": "DataManager",
+            "orcid": "0000-0003-1866-2988"
+        },
+        {
+            "name": "Koutroumanis, Nikolaos",
+            "type": "Researcher"
+        },
+        {
+            "name": "Semitekolos, Dionisis",
+            "type": "Researcher"
+        },
+        {
+            "name": "Jiménez, Bárbara",
+            "type": "Researcher"
+        },
+        {
+            "name": "Rivera, Rubén",
+            "type": "Researcher"
+        },
+        {
+            "name": "Sáenz Ezquerro, Carlos",
+            "type": "Researcher"
+        },
+        {
+            "name": "Srivastava, Rajat",
+            "type": "Researcher"
+        },
+        {
+            "name": "Pappas, Panagiotis-Nektarios",
+            "type": "Researcher"
+        },
+        {
+            "name": "Galiotis, Costas",
+            "type": "Researcher"
+        },
+        {
+            "name": "Charitidis, Costas A.",
+            "type": "Supervisor"
+        },
+        {
+            "name": "Chiavazzo, Eliodoro",
+            "type": "Supervisor",
+            "orcid": "0000-0001-6165-7434"
+        },
+        {
+            "name": "Asinari, Pietro",
+            "type": "Supervisor",
+            "orcid": "0000-0003-1814-3846"
+        },
+        {
+            "name": "Laspalas, Manuel",
+            "type": "Researcher"
+        },
+        {
+            "name": "Chiminelli, Agustín",
+            "type": "ProjectManager"
+        },
+        {
+            "name": "Fasano, Matteo",
+            "type": "ProjectManager",
+            "orcid": "0000-0002-3997-3681"
+        }
+    ],
+    "language": "eng",
+    "keywords": [
+        "Nanocomposites",
+        "Multiscale modeling",
+        "Coarse-grained simulation",
+        "Polylactic acid",
+        "PLA",
+        "Graphene",
+        "Additive manufacturing",
+        "Thermal-mechanical propertie",
+        "3D printing"
+    ],
+    "related_identifiers": [
+        {
+            "scheme": "doi",
+            "identifier": "TBD",
+            "relation": "isSupplementTo",
+            "resource_type": "publication-article"
+        }
+    ],
+    "grants": [
+        {
+            "id": "760779"
+        }
+    ]
+}

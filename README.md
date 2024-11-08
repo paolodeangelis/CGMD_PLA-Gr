@@ -1,4 +1,4 @@
-# CGMD_PLA-Gr
+# CGMD PLA-Gr
 
 This repository currently serves as a placeholder while the related article is under review.
 
