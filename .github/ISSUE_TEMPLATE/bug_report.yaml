@@ -1,0 +1,87 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+title: "[BUG] "
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: "## Expected Behavior\nDescribe what should happen."
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: "If you're describing a bug, tell us what should happen. If you're suggesting a change or improvement, tell us how it should work."
+
+  - type: markdown
+    attributes:
+      value: "## Current Behavior\nDescribe what happens instead of the expected behavior."
+
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current Behavior
+      description: "If describing a bug, tell us what happens instead of the expected behavior. If suggesting a change or improvement, explain the difference from the current behavior."
+
+  - type: markdown
+    attributes:
+      value: "## Possible Solution\nSuggest a fix or reason for the bug, or ideas on how to implement the addition or change."
+
+  - type: textarea
+    id: possible_solution
+    attributes:
+      label: Possible Solution
+      description: "This is optional, but please suggest a fix, reason for the bug, or ideas on how to implement the change."
+
+  - type: markdown
+    attributes:
+      value: "## Steps to Reproduce (for bugs)\nProvide a clear set of steps to reproduce the issue."
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: "Provide a live example link, or unambiguous steps to reproduce the bug. Include code if relevant."
+      placeholder: |
+        1.
+        2.
+        3.
+        4.
+
+  - type: markdown
+    attributes:
+      value: "## Context\nDescribe how this issue affects you or what you are trying to accomplish."
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: "Provide context to help us understand the issue's real-world impact or the goals you are trying to achieve."
+
+  - type: markdown
+    attributes:
+      value: "## Your Environment\nProvide details about the environment where you experienced the bug."
+
+  - type: input
+    id: version_used
+    attributes:
+      label: Version Used
+      description: "Include the version of the software or tool you're using."
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: "Specify the environment name and version, such as browser name and version, or node.js version."
+
+  - type: input
+    id: operating_system
+    attributes:
+      label: Operating System and Version
+      description: "Specify your operating system and version (e.g., desktop or mobile)."
+
+  - type: input
+    id: project_link
+    attributes:
+      label: Link to Project
+      description: "Provide a link to your project, if applicable."

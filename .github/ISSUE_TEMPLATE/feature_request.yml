@@ -1,0 +1,54 @@
+name: Feature Request
+description: Suggest a new feature or improvement
+title: "[FEATURE] "
+labels: enhancement
+body:
+  - type: markdown
+    attributes:
+      value: "## Summary\nProvide a clear and concise summary of the feature or improvement you would like to see."
+
+  - type: textarea
+    id: feature_summary
+    attributes:
+      label: Summary
+      description: "Briefly describe the feature or improvement you'd like implemented."
+
+  - type: markdown
+    attributes:
+      value: "## Motivation\nExplain why this feature would be valuable and how it could improve the project."
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: "Describe why this feature or improvement is important and how it will benefit the project or users."
+
+  - type: markdown
+    attributes:
+      value: "## Detailed Description\nProvide a detailed description of the feature or enhancement."
+
+  - type: textarea
+    id: detailed_description
+    attributes:
+      label: Detailed Description
+      description: "Explain the feature or improvement in detail. Provide context, specific details, or examples to help understand the request."
+
+  - type: markdown
+    attributes:
+      value: "## Potential Alternatives\nIf applicable, mention any alternatives or similar features you've considered."
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Potential Alternatives
+      description: "Suggest any alternative solutions or similar features you considered, if relevant."
+
+  - type: markdown
+    attributes:
+      value: "## Additional Context\nAdd any other context, screenshots, or references that would help explain the feature request."
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: "Include any other information, screenshots, or links to relevant references that might help understand the request."
