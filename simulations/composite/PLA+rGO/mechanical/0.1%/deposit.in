@@ -1,0 +1,51 @@
+# ------------------------ INITIALIZATION ----------------------------
+units        real
+boundary     p p p
+dimension    3
+atom_style   full
+
+pair_style        lj/cut  15.0
+bond_style        hybrid morse harmonic table linear 1001
+angle_style       hybrid harmonic cosine/squared
+dihedral_style    opls
+read_data         blank.data
+
+pair_coeff 1 1 0.0255 7.48 # GO
+pair_coeff 2 2 0.128 7.48  # GO
+pair_coeff 3 3 0.0797 7.48 # GO
+pair_coeff 4 4 0.9553 4.7 # PLA
+bond_coeff 1 morse 443.07 1.154 2.86          # GO
+bond_coeff 2 table second.table Bond_table2   # GO
+bond_coeff 3 table third.table  Bond_table3   # GO
+bond_coeff 4 harmonic 9.5538 4.34             # PLA
+angle_coeff 1 harmonic 456.61 120             # GO
+angle_coeff 2 harmonic 259.47 120             # GO
+angle_coeff 3 harmonic 189.93 120             # GO
+angle_coeff 4 cosine/squared 14.0919 120      #PLA
+dihedral_coeff 1 0 2.075 0 0                  #PLA
+
+
+pair_modify mix arithmetic
+thermo_modify norm no lost/bond ignore
+
+
+
+molecule rGO rGO.mol
+molecule pla PLA.mol
+region 2 block 0 800 0 800 0 800
+
+
+fix 1 all deposit 1 0 10 453  mol rGO region 2  units box
+
+fix 2 all deposit 600 0 10 678 mol pla region 2 units box
+
+timestep        1.0
+
+
+# ------------------------- SETTINGS ---------------------------------
+dump             1 all custom 1000 PLA_rGO_0.1.lammpstrj id type mol x y z
+thermo           1000
+run              7000
+
+write_data       PLA_rGO_0.1.data
+write_restart    restart.lammps

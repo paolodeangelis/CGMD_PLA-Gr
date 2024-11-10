@@ -1,0 +1,44 @@
+# ------------------------ INITIALIZATION ----------------------------
+units        real
+boundary     p p p
+dimension    3
+atom_style   full
+pair_style        lj/cut  15.0
+bond_style        hybrid morse harmonic
+angle_style       hybrid harmonic cosine/squared
+dihedral_style    opls
+read_data         blank.data
+
+pair_coeff 1 1 0.82 3.46
+pair_coeff 2 2 0.9553 4.7
+
+bond_coeff 1 morse 196.38 1.55 2.8
+bond_coeff 2 harmonic 9.5538 4.34
+
+angle_coeff 1 harmonic 409.4 120
+angle_coeff 2 cosine/squared 14.0919 120
+
+dihedral_coeff 1 0 2.075 0 0
+
+molecule gr Gr_3_3_nm_2.mol
+molecule pla PLA.mol
+
+region 2 block 0 800 0 800 0 800
+
+fix 1 all deposit 10 0 10 100 mol gr region 2  units box
+
+fix 2 all deposit 500 0 10 468 mol pla region 2 units box
+
+
+timestep        0.10
+
+
+# ------------------------- SETTINGS ---------------------------------
+
+
+dump             1 all custom 1000 PLA_Gr_1.0.lammpstrj id type mol x y z
+thermo  1000
+run            	11000
+
+write_data 	PLA_Gr_1.0.data
+write_restart 	restart.lammps

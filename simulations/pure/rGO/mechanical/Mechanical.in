@@ -1,0 +1,69 @@
+################################################################################
+# GRAPHENE: TENSILE TEST
+################################################################################
+#
+# This is a lammps input file to simulate the stretching or compression of
+# graphene. The output data can be used to calculate the Young's modulus and the
+# breaking stress/strain. Buckling of a graphene sheet can be studied by
+# compressing the sheet.
+#
+################################################################################
+
+
+# UNITS
+# The default time step (1fs) for real units is used. Some useful conversion factors are defined.
+units        real
+timestep     1
+variable     fpress  equal 0.000101325  # atm -> GPa
+variable     fenergy equal 1.0     # Kcal/mole
+
+# GRAPHENE SHEET
+# The atom positions and the simulation box size will be read from a data file.
+dimension    3
+boundary     p p f
+atom_style   full
+pair_style        lj/cut  12.0
+bond_style       hybrid morse table linear 1001
+angle_style       harmonic
+read_data    rGO_equi_.data
+
+bond_coeff 1 morse 443.07 1.154 2.86
+bond_coeff 2 table second.table Bond_table2
+bond_coeff 3 table third.table  Bond_table3
+
+variable     tmp     equal lx
+variable     lx0     equal ${tmp}
+variable     tmp     equal ly
+variable     ly0     equal ${tmp}
+variable     etotal  equal etotal/atoms*${fenergy} #kcal/atom
+variable     pe      equal     pe/atoms*${fenergy} #kcal/atom
+variable     ke      equal     ke/atoms*${fenergy} #kcal/atom
+variable     strainx equal (lx-${lx0})/${lx0}
+variable     strainy equal (ly-${ly0})/${ly0}
+variable     stressx equal -pxx*(lz/3.35)*${fpress} #GPa
+variable     stressy equal -pyy*(lz/3.35)*${fpress} #GPa
+thermo_style custom time press v_strainx v_stressx v_strainy v_stressy
+
+log   log.lammps
+# TEMPERATURE SETTINGS
+
+# simulation box can change in x and y direction to resolve stresses. The number
+# of time steps should be large enough to relax the system in your final
+# simulation but can be small for debugging purposes.
+fix          fnpt all npt temp 300 300 10 x 0.0 0.0 500 y 0.0 0.0 500
+dump         10 all atom 1000 dmp_eq.lammpstrj
+thermo       1000
+run          40000
+unfix fnpt
+
+# DEFORMATION
+# Rescale the box to simulate stretching (scale > 1) or compressing (scale<1)
+# of the graphene sheet. Again, a NPT ensemble is used. But this time the size
+# of the box can only change in the direction perpendicular to the direction of
+# deformation. Change x and y to switch the deformation direction.
+fix          boxdeform all deform 1 x scale 2 remap x
+fix          fnpt all npt temp 300 300 10 y 0 0 500
+dump         1 all atom 100 dmp.lammpstrj
+thermo       1
+
+run          10000

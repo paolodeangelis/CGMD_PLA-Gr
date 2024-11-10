@@ -1,0 +1,45 @@
+# Copyright (c) 2024 by Atta Muhammad and Paolo De Angelis
+# Licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License.
+#
+# This script is provided for research and educational purposes. You are free to share, use, and adapt
+# this script, provided that appropriate credit is given, a link to the license is included, and any
+# changes made are indicated. For full license details, please visit:
+# https://creativecommons.org/licenses/by/4.0/
+
+
+# General parameters
+units		  real
+atom_style        molecular
+boundary          p p p
+
+pair_style        lj/cut  12.0
+bond_style        harmonic
+angle_style       cosine/squared
+
+read_data         PLA_N_400_CL_150.data
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+thermo_style      custom step etotal temp press vol density
+thermo            1000
+thermo_modify     flush yes
+
+min_style     cg
+min_modify    dmax 0.02
+min_modify    line quadratic
+
+minimize          1.0e-1 1.0e-1 100 1000
+
+timestep 	  1.0
+#fix 1 all nve
+fix 1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+# Dump minimized system
+
+dump              1 all custom 10000 PLA_150.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000 PLA.restart
+
+run               1000000
+write_data        PLA_Equi.data
+write_restart     restart.lammps

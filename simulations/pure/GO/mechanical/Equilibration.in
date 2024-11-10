@@ -1,0 +1,49 @@
+# ------------------------ INITIALIZATION ----------------------------
+units        real
+boundary     p p f
+dimension    3
+atom_style   full
+read_data    GO_%.data
+
+pair_style        lj/cut  12.0
+pair_coeff 1 1 0.0255 7.48
+pair_coeff 2 2 0.128 7.48
+pair_coeff 3 3 0.0797 7.48
+
+bond_style       hybrid morse table linear 1001
+bond_coeff 1 morse 443.07 1.154 2.86
+bond_coeff 2 table second.table Bond_table2
+bond_coeff 3 table third.table  Bond_table3
+angle_style      harmonic
+angle_coeff 1 456.61 120
+angle_coeff 2 259.47 120
+angle_coeff 3 189.93 120
+pair_modify mix arithmetic
+
+
+timestep        1.0
+
+
+
+# ------------------------- SETTINGS ---------------------------------
+#fix 1 all nve
+fix               1 all nvt temp 300 300 100
+dump              1 all custom 10000 graphene.lammpstrj id type mol x y z
+thermo_style      custom step etotal temp vol density
+thermo            1000
+thermo_modify     flush yes
+run               1000000
+
+unfix              1
+reset_timestep     0
+
+fix             2 all npt temp 300 300 100 x 0 0 1000 y 0 0 1000
+
+dump              2 all custom 1000 graphene.lammpstrj id type mol x y z
+thermo_style      custom step etotal temp vol density
+thermo            1000
+thermo_modify     flush yes
+run            	100000
+
+write_data	  GO_equi_%.data
+write_restart restart.lammps

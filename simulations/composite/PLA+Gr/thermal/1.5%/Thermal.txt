@@ -1,0 +1,90 @@
+# X-direction
+# General parameters
+units        	  real
+boundary     	  p p p
+dimension    	  3
+atom_style   	  full
+pair_style        lj/cut  15.0
+bond_style        hybrid morse harmonic
+angle_style       hybrid harmonic cosine/squared
+dihedral_style    opls
+
+
+read_data         PLA_Gr_1.5_Equi.data
+
+variable	KcaltoJoules	equal	6.95e-21
+variable	kB	equal	1.38e-23
+
+pair_coeff 1 1 0.82 3.46
+pair_coeff 2 2 0.9553 4.7
+
+bond_coeff 1 morse 196.38 1.55 2.8
+bond_coeff 2 harmonic 9.5538 4.34
+
+angle_coeff 1 harmonic 409.4 120
+angle_coeff 2 cosine/squared 14.0919 120
+
+dihedral_coeff 1 0 2.075 0 0
+
+
+pair_modify	mix arithmetic
+
+
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+thermo_style      custom step etotal temp press vol density
+thermo            1000
+thermo_modify     flush yes
+timestep 	  0.10
+fix 1 all npt temp 300 300 100.0 iso 1.0 1.0 1000.0
+log                X/log_300
+
+
+dump              1 all custom 10000 X/PLAGr_150.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000    X/PLAGr_npt.restart
+
+run               100000
+
+unfix 1
+# Thermalization-------------------------------------------------------------------------------------------------------------------
+
+velocity all zero linear
+
+fix 1 all nvt temp 300 300 100
+
+
+run 100000
+
+restart 100000   X/PLAGr_nve.restart
+unfix 1
+
+fix 1 all nve
+
+
+run 100000
+unfix	1
+
+reset_timestep 0
+
+# Thermal Conductivity-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fix nve	all nve	             # time integration is performed under microcanonical ensamble
+compute	myKE all ke/atom     # kinetic energy per atom
+
+variable tempperatom atom c_myKE*${KcaltoJoules}/(1.5*${kB})	# temperature per atom
+
+# temperature profile	-----------------
+
+compute	layers all chunk/atom bin/1d x lower 4.0 units box	# group atoms into chunks
+fix aveTPA all ave/chunk 100 50 5000 layers v_tempperatom file $c/X/temperature_X.dump     # calculates temperature profile vy average atom temperature within chunks and time
+
+# Muller-Plathé algorithm    -----------------
+
+fix mp all thermal/conductivity	100 x 20     # applies Muller-Plathe algorithm
+fix e_exchange all ave/time 100 50 5000 f_mp file $c/X/energy_exchange_X.dump     # cumulative kinetic energy transferred between the bottom and middle of the simulation box (units are kcal/mol)
+
+run	1000000
+
+write_restart   X/restartX.lammps

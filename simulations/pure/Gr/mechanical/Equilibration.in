@@ -1,0 +1,39 @@
+# General parameters
+units	real
+atom_style        full
+boundary          p p p
+
+pair_style        lj/cut  12.0
+bond_style        morse
+angle_style       harmonic
+dihedral_style    opls
+
+read_data         graphene.data
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+#minimize          1.0e-10 1.0e-10 100000 100000
+thermo_style      custom step etotal temp vol density
+thermo            1000
+thermo_modify     flush yes
+
+#min_style     cg
+#min_modify    dmax 0.02
+#min_modify    line quadratic
+
+#minimize          1.0e-1 1.0e-1 100 1000
+
+timestep          1.0
+#fix 1 all nve
+fix 1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+# Dump minimized system
+
+
+
+dump              1 all custom 10000 graphene.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000 graphene.restart
+
+run               1000000
+write_data	graphene_equi.data
+write_restart 	restart.lammps

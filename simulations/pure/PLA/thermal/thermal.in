@@ -1,0 +1,238 @@
+# Copyright (c) 2024 by Atta Muhammad and Paolo De Angelis
+# Licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License.
+#
+# This script is provided for research and educational purposes. You are free to share, use, and adapt
+# this script, provided that appropriate credit is given, a link to the license is included, and any
+# changes made are indicated. For full license details, please visit:
+# https://creativecommons.org/licenses/by/4.0/
+
+
+# X direction
+
+# General Parameters and Force Fields-------------------------------------------------------------------------------------------------------------------
+units		  real
+atom_style        molecular
+boundary          p p p
+
+pair_style        lj/cut  12.0
+bond_style        harmonic
+angle_style       cosine/squared
+
+read_data         PLA_N_400_CL_150.data
+
+variable	  KcaltoJoules	equal	6.95e-21
+variable	  kB	equal	1.38e-23
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+thermo_style      custom step etotal temp press vol density
+thermo            1000
+thermo_modify     flush yes
+timestep 	  0.10
+fix 1 all npt temp 300 300 100.0 iso 1.0 1.0 1000.0
+log   X/log_300
+
+
+dump              1 all custom 1000  X/PLA_150.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000  X/PLA_npt.restart
+
+run               1000000
+
+unfix 1
+# Thermalization-------------------------------------------------------------------------------------------------------------------
+
+velocity all zero linear
+
+fix 1 all nvt temp 300 300 100
+
+
+run 1000000
+
+restart 100000  X/PLA_nve.restart
+unfix 1
+
+fix 1 all nve
+
+
+run 1000000
+unfix	1
+
+reset_timestep 0
+
+# Thermal Conductivity-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fix nve	all nve	             # time integration is performed under microcanonical ensamble
+compute	myKE all ke/atom     # kinetic energy per atom
+
+variable tempperatom atom c_myKE*${KcaltoJoules}/(1.5*${kB})	# temperature per atom
+
+# temperature profile	-----------------
+
+compute	layers all chunk/atom bin/1d x lower 4.0 units box	# group atoms into chunks
+fix aveTPA all ave/chunk 100 50 5000 layers v_tempperatom file X/temperature_X.dump     # calculates temperature profile vy average atom temperature within chunks and time
+
+# Muller-Plathé algorithm    -----------------
+
+fix mp all thermal/conductivity	100 x 20     # applies Muller-Plathe algorithm
+fix e_exchange all ave/time 100 50 5000 f_mp file X/energy_exchange_X.dump     # cumulative kinetic energy transferred between the bottom and middle of the simulation box (units are kcal/mol)
+
+run	1000000
+
+write_restart X/restartX.lammps
+
+clear
+
+
+# Y direction
+# General Parameters and Force Fields-------------------------------------------------------------------------------------------------------------------
+units		  real
+atom_style        molecular
+boundary          p p p
+
+pair_style        lj/cut  12.0
+bond_style        harmonic
+angle_style       cosine/squared
+
+read_data         PLA_N_400_CL_150.data
+
+variable	  KcaltoJoules	equal	6.95e-21
+variable	  kB	equal	1.38e-23
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+thermo_style      custom step etotal temp press vol density
+thermo            1000
+thermo_modify     flush yes
+timestep 	  0.10
+fix 1 all npt temp 300 300 100.0 iso 1.0 1.0 1000.0
+log   Y/log_300
+
+dump              1 all custom 1000  Y/PLA_150.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000  Y/PLA_npt.restart
+
+run               1000000
+
+unfix 1
+# Thermalization-------------------------------------------------------------------------------------------------------------------
+
+velocity all zero linear
+
+fix 1 all nvt temp 300 300 100
+
+
+restart 100000  Y/PLA_nvt.restart
+
+run 1000000
+unfix 1
+
+fix 1 all nve
+restart 100000  Y/PLA_nve.restart
+
+
+run 1000000
+unfix	1
+
+reset_timestep 0
+
+# Thermal Conductivity----------------------------------------------------------------------------------------------------------------
+
+fix nve	all nve	             # time integration is performed under microcanonical ensamble
+compute	myKE all ke/atom     # kinetic energy per atom
+
+variable tempperatom atom c_myKE*${KcaltoJoules}/(1.5*${kB})	# temperature per atom
+
+# temperature profile	-----------------
+
+compute	layers all chunk/atom bin/1d y lower 4.0 units box	# group atoms into chunks
+fix aveTPA all ave/chunk 100 50 5000 layers v_tempperatom file Y/temperature_Y.dump     # calculates temperature profile vy average atom temperature within chunks and time
+
+# Muller-Plathé algorithm    -----------------
+
+fix mp all thermal/conductivity	100 y 20     # applies Muller-Plathe algorithm
+fix e_exchange all ave/time 100 50 5000 f_mp file Y/energy_exchange_Y.dump     # cumulative kinetic energy transferred between the bottom and middle of the simulation box (units are kcal/mol)
+
+run	1000000
+
+write_restart Y/restartY.lammps
+
+clear
+
+
+# Z direction
+# General Parameters and Force Fields-------------------------------------------------------------------------------------------------------------------
+
+units	real
+
+atom_style        molecular
+boundary          p p p
+
+pair_style        lj/cut  12.0
+bond_style        harmonic
+angle_style       cosine/squared
+
+read_data         PLA_N_400_CL_150.data
+
+variable	  KcaltoJoules	equal	6.95e-21
+variable	  kB	equal	1.38e-23
+neighbor          0.3 bin
+neigh_modify every 1 delay 0 check yes
+thermo_style      custom step etotal temp press vol density
+thermo            1000
+thermo_modify     flush yes
+timestep 	  0.10
+fix 1 all npt temp 300 300 100.0 iso 1.0 1.0 1000.0
+log   Z/log_300
+
+dump              1 all custom 1000  Z/PLA_150.lammpstrj id type mol x y z
+dump_modify 1 sort id
+
+restart 100000  Z/PLA_npt.restart
+
+run               1000000
+
+unfix 1
+# Thermalization-------------------------------------------------------------------------------------------------------------------
+
+velocity all zero linear
+
+fix 1 all nvt temp 300 300 100
+
+restart 100000  Z/PLA_nvt.restart
+
+
+run 1000000
+
+unfix 1
+
+fix 1 all nve
+
+restart 100000  Z/PLA_nve.restart
+
+run 1000000
+
+unfix	1
+
+reset_timestep 0
+
+# Thermal Conductivity----------------------------------------------------------------------------------------------------------------------------------
+
+fix nve	all nve	             # time integration is performed under microcanonical ensamble
+compute	myKE all ke/atom     # kinetic energy per atom
+
+variable tempperatom atom c_myKE*${KcaltoJoules}/(1.5*${kB})	# temperature per atom
+
+# temperature profile	-----------------
+
+compute	layers all chunk/atom bin/1d z lower 4.0 units box	# group atoms into chunks
+fix aveTPA all ave/chunk 100 50 5000 layers v_tempperatom file Z/temperature_Z.dump     # calculates temperature profile vy average atom temperature within chunks and time
+
+# Muller-Plathé algorithm    -----------------
+
+fix mp all thermal/conductivity	100 z 20     # applies Muller-Plathe algorithm
+fix e_exchange all ave/time 100 50 5000 f_mp file Z/energy_exchange_Z.dump     # cumulative kinetic energy transferred between the bottom and middle of the simulation box (units are kcal/mol)
+
+run	1000000
+
+write_restart Z/restartZ.lammps
