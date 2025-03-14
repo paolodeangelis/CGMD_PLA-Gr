@@ -19,15 +19,16 @@ This repository contains all input files, simulation scripts, and post-processin
 ## Repository Structure
 
 ```
-└─── simulations/         # Simulation input files
-     ├───composite/       # Composite materials simulations
-     └───pure/            # Pure materials simulations
+├─── codes/                 # Configurations C++ source files
+└─── simulations/           # Simulation input files
+     ├─── composite/        # Composite materials simulations
+     └─── pure/             # Pure materials simulations
 ```
 
 ## Requirements
 
 - **Operating System**: Linux (Ubuntu/Debian recommended)
-- **Compilers**: C, C++11
+- **Compiler**: GCC/G++ supporting C++11
 - **Simulation Software**: [LAMMPS](https://www.lammps.org), [VMD](https://www.ks.uiuc.edu/Research/vmd/)
 
 
