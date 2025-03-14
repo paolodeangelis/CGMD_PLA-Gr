@@ -11,10 +11,10 @@ The input coarse-grained molecular dynamics (CGMD) simulation data are written i
 The data is organized into two main subfolders, each containing the necessary files to run CGMD simulations:
 
 - **`simulations/pure`**: Contains all files required for CGMD simulations of bulk pure materials.
-[➡️ Details](pure\README.md)
+[➡️ Details](pure/README.md)
 
 - **`simulations/composites`**: Contains all files required for CGMD simulations of the nanocomposite materials under investigation.
-[➡️ Details](composites\README.md)
+[➡️ Details](composites/README.md)
 
 **Folders:**
 ```bash
