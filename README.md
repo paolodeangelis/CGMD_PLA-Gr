@@ -11,7 +11,7 @@
 
 This repository contains all input files, simulation scripts, and post-processing scripts necessary to reproduce the results presented in the article:
 
-> [**"From nanoscale to printed products: Multiscale modeling and experimental characterization of graphene-enhanced polylactic acid composites for 3D printing**](article-doi)
+> [**"From nanoscale to printed products: Multiscale modeling and experimental characterization of graphene-enhanced polylactic acid composites for 3D printing**][article-doi]
 
 ![Graphical Abstract](https://ars.els-cdn.com/content/image/1-s2.0-S135983682500246X-ga1_lrg.jpg)
 
@@ -38,7 +38,7 @@ This repository adheres to the FAIR principles:
 - **Findable**: DOI provided via Zenodo.
 - **Accessible**: Licensed under CC BY 4.0.
 - **Interoperable**: Standard data formats and documented scripts.
-- **Reusable**: Clear documentation and reproducible workflows explained in the [article](article-doi) method section.
+- **Reusable**: Clear documentation and reproducible workflows explained in the [article][article-doi] method section.
 
 ## Citation
 
