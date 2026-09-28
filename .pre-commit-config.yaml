@@ -18,7 +18,7 @@ repos:
         exclude: ^.tex
 
   - repo: https://github.com/PyCQA/isort
-    rev: 9.0.0a3
+    rev: 9.0.1
     hooks:
       - id: isort
 
@@ -40,13 +40,13 @@ repos:
         # additional_dependencies: [black==21.9b0]
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
+    rev: 7.4.1
     hooks:
       - id: flake8
         additional_dependencies: [flake8-isort, flake8-builtins, flake8-docstrings] # [flake8-isort, flake8-docstrings]
 
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v2.1.0'  # Use the sha / tag you want to point at
+      rev: 'v2.3.1'  # Use the sha / tag you want to point at
       hooks:
       -   id: mypy
 
