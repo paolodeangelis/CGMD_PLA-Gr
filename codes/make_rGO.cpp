@@ -34,7 +34,7 @@ double findMax(double** mat, int row, int a) {
 }
 
 double length(double* v1, double* v2) {
-  //# v1(x1, y1, z1) and v2(x2, y2, z2) , length = sqrt((x2-x1)^2 + (y2-y1)^2 +
+  // # v1(x1, y1, z1) and v2(x2, y2, z2) , length = sqrt((x2-x1)^2 + (y2-y1)^2 +
   //(z2-z1)^2)......
   double x1 = v1[0];
   double y1 = v1[1];
